@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -13,6 +13,7 @@ interface NavbarProps {
 
 export function Navbar({ hide = false }: NavbarProps) {
   const pathname = usePathname()
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   
 
@@ -24,11 +25,16 @@ export function Navbar({ hide = false }: NavbarProps) {
   ]
 
   const handleContactClick = (e: React.MouseEvent, href: string) => {
-    if (href === "#contact" && pathname === "/") {
+    if (href === "#contact") {
       e.preventDefault()
-      const contactSection = document.querySelector('[id="contact"]')
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth" })
+      if (pathname === "/") {
+        const contactSection = document.querySelector('[id="contact"]')
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" })
+        }
+      } else {
+        // Navigate to home with hash so the page can scroll to the section
+        router.push("/contact")
       }
     }
   }

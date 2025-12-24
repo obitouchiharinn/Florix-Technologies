@@ -43,6 +43,8 @@ export default function Home() {
     comment: "",
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isSending, setIsSending] = useState(false)
+  const [statusMessage, setStatusMessage] = useState<null | { type: "success" | "error"; text: string }>(null)
 
   const { scrollYProgress } = useScroll({
     target: servicesRef,
@@ -63,6 +65,32 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // If navigated to a hash (/#contact), scroll to that section on mount and when hash changes
+  useEffect(() => {
+    const scrollToHash = () => {
+      try {
+        const hash = window.location.hash
+        if (!hash) return
+        const id = hash.replace("#", "")
+        const el = document.getElementById(id)
+        if (el) {
+          // account for fixed navbar height (approx 96px)
+          const navbarOffset = 96
+          const top = el.getBoundingClientRect().top + window.scrollY - navbarOffset
+          window.scrollTo({ top, behavior: "smooth" })
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    // Scroll on mount
+    scrollToHash()
+    // Scroll on hashchange
+    window.addEventListener("hashchange", scrollToHash)
+    return () => window.removeEventListener("hashchange", scrollToHash)
+  }, [])
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -72,12 +100,37 @@ export default function Home() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] Form submitted:", formData)
-    setFormSubmitted(true)
-    setTimeout(() => {
+    if (isSending) return
+    setIsSending(true)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        console.error("Contact send failed", err)
+        const message = err?.error || "Failed to send message. Please try again later."
+        setStatusMessage({ type: "error", text: message })
+        setTimeout(() => setStatusMessage(null), 5000)
+        setIsSending(false)
+        return
+      }
+
+      setFormSubmitted(true)
+      setStatusMessage({ type: "success", text: "Message sent successfully. We will get back to you soon." })
+      setTimeout(() => setStatusMessage(null), 4000)
       setFormData({ firstName: "", lastName: "", mobile: "", email: "", comment: "" })
-      setFormSubmitted(false)
-    }, 2000)
+      setTimeout(() => setFormSubmitted(false), 2500)
+    } catch (error) {
+      console.error("Contact error", error)
+      setStatusMessage({ type: "error", text: "An error occurred while sending. Please try again." })
+      setTimeout(() => setStatusMessage(null), 5000)
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const serviceRoutes: Record<string, string> = {
@@ -426,7 +479,7 @@ export default function Home() {
       </section>
 
       {/* Contact Us Section */}
-      <section className="py-32 px-6 bg-white" id="contact">
+      <section className="py-32 px-6 bg-white" >
         <div className="max-w-7xl mx-auto">
           <motion.section
             initial={{ opacity: 0, y: 10 }}
@@ -462,7 +515,7 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-12" id="contact">
             {/* Left Column: Map and Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -554,6 +607,29 @@ export default function Home() {
 
                 {/* Content */}
                 <form onSubmit={handleFormSubmit} className="relative z-10 space-y-6">
+                  {statusMessage && (
+                    <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="mb-2 flex justify-center">
+                      <div
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
+                          statusMessage.type === "success"
+                            ? "bg-primary/10 text-primary"
+                            : "bg-red-50 text-red-600"
+                        }`}
+                      >
+                        <span className={`relative flex h-3 w-3 ${statusMessage.type === "success" ? "" : "opacity-80"}`}>
+                          {statusMessage.type === "success" ? (
+                            <>
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                            </>
+                          ) : (
+                            <span className="inline-flex rounded-full h-3 w-3 bg-red-600" />
+                          )}
+                        </span>
+                        <span className="text-sm font-semibold">{statusMessage.text}</span>
+                      </div>
+                    </motion.div>
+                  )}
                   <div className="grid md:grid-cols-2 gap-4">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -654,9 +730,12 @@ export default function Home() {
                   >
                     <Button
                       type="submit"
+                      disabled={isSending}
                       className="w-full rounded-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
                     >
-                      {formSubmitted ? (
+                      {isSending ? (
+                        <span>Sending...</span>
+                      ) : formSubmitted ? (
                         <span>Message Sent!</span>
                       ) : (
                         <>
