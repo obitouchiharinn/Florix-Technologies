@@ -26,6 +26,7 @@ import {
 } from "lucide-react"
 import { Footer } from "@/components/footer"
 import { Meteors } from "@/components/ui/meteors"
+import Reviews from "@/components/reviews"
 
 export default function Home() {
   const router = useRouter()
@@ -158,15 +159,15 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="min-h-screen flex items-center justify-center px-6 pt-32 relative overflow-hidden"
+        className="min-h-[70vh] md:min-h-screen flex items-center justify-center px-6 pt-28 md:pt-32 relative overflow-hidden"
       >
         {/* Meteors background - full-cover absolute so it sits behind content */}
-        <div  className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden ">
+        <div  className="relative flex w-full flex-col items-center justify-center overflow-hidden h-auto md:h-[500px]">
           <Meteors number={30} />
         
 
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 rounded-full">
+        <div className="max-w-6xl mx-auto text-center relative z-10 mt-4 md:mt-0">
+          <div className="inline-flex items-center gap-2 mb-6 mt-4 px-4 py-2 bg-primary/10 rounded-full">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
@@ -183,13 +184,13 @@ export default function Home() {
             {"Creating meaningful connections and turning big ideas into interactive digital experiences."}
           </p>
 
-          <div className="flex items-center justify-center gap-4">
-            <Button size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-white px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+            <Button size="lg" className="w-full sm:w-auto rounded-full bg-primary hover:bg-primary/90 text-white px-8 py-3">
               Get Started
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-8 bg-transparent">
+            {/* <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 bg-transparent mt-2 sm:mt-0">
               View Our Work
-            </Button>
+            </Button> */}
           </div>
 
 
@@ -427,6 +428,22 @@ export default function Home() {
       {/* Contact Us Section */}
       <section className="py-32 px-6 bg-white" id="contact">
         <div className="max-w-7xl mx-auto">
+          <motion.section
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="py-12 px-6"
+          >
+            <div className="max-w-7xl mx-auto mt-12">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6 text-balance text-center">
+                <span className="text-foreground">What our customers say</span>
+              </h2>
+              <p className="mt-3 text-sm text-muted-foreground text-center">Real feedback from customers who trust our work</p>
+              <Reviews />
+            </div>
+          </motion.section>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

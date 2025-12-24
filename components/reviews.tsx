@@ -61,7 +61,7 @@ const ReviewCard = ({
         "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-3">
         <img className="rounded-full" width="32" height="32" alt="" src={img} />
         <div className="flex flex-col">
           <figcaption className="text-sm font-medium dark:text-white">{name}</figcaption>
@@ -75,7 +75,8 @@ const ReviewCard = ({
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-7 overflow-hidden">
+    <div className="relative flex w-full flex-col items-center justify-center gap-7 py-6 overflow-hidden">
+
 
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
