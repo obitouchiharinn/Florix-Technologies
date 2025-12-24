@@ -53,12 +53,12 @@ export function IconCloudDemo() {
       <motion.div
         className="icon-cloud-container relative w-72 h-72"
         animate={{
-          rotationX: [0, 360],
-          rotationY: [0, 360],
+          rotateX: [0, 360],
+          rotateY: [0, 360],
         }}
         transition={{
-          rotationX: { duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-          rotationY: { duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
+          rotateX: { duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
+          rotateY: { duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
         }}
         style={{
           transformStyle: "preserve-3d",

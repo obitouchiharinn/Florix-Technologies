@@ -7,7 +7,7 @@ import type { Group } from "three"
 
 // Raw Model (from user). Keeps exact structure but typed for TSX.
 export function Model(props: any) {
-  const group = useRef<Group>()
+  const group = useRef<Group | null>(null)
   const gltf = useGLTF("/model/cute_home_robot.glb") as any
   const { nodes, materials, animations, scene } = gltf
   useAnimations(animations, group as any)

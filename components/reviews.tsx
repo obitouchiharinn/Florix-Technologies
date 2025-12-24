@@ -48,7 +48,7 @@ const ReviewCard = ({
 }: {
   img: string
   name: string
-  username: string
+  username?: string
   body: string
 }) => {
   return (
