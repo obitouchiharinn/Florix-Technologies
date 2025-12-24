@@ -192,17 +192,20 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Futuristic Illustration */}
-          <div className="relative">
-            <img
-              src="/futuristic-technology-illustration.jpg"
-              alt="Futuristic Technology Illustration"
-              className="w-full h-full rounded-2xl shadow-2xl"
-            />
-          </div>
+
         </div>
         </div>
       </motion.section>
+
+      {/* Hero Illustration (moved below hero) */}
+      <div className="mt-12 px-6">
+        <img
+          src="/hero.jpg"
+          alt="Futuristic Technology Illustration"
+          className="w-full max-w-4xl mx-auto h-auto rounded-2xl shadow-2xl"
+          loading="lazy"
+        />
+      </div>
 
       {/* Stats Section */}
       <motion.section

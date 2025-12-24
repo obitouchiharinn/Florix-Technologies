@@ -6,7 +6,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import Model from "./model"
 
 interface NavbarProps {
   hide?: boolean
@@ -46,9 +45,6 @@ export function Navbar({ hide = false }: NavbarProps) {
         <Link href="/" className="text-2xl font-bold flex items-center gap-3">
           <span className="text-primary">FLORIX</span>
 
-          <div className="-mt-1" aria-hidden>
-            <Model />
-          </div>
         </Link>
 
         {/* Navigation Links */}
