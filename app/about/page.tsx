@@ -101,7 +101,7 @@ export default function AboutPage() {
         </motion.div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6 mb-20">
+      {/* <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6 mb-20">
         {[
           { label: "Projects Completed", value: 600, icon: "⚡" },
           { label: "Happy Clients", value: 185, icon: "🤝" },
@@ -128,7 +128,7 @@ export default function AboutPage() {
             </Card>
           </motion.div>
         ))}
-      </div>
+      </div> */}
 
       <motion.div style={{ opacity: storyOpacity, y: storyY }} className="max-w-6xl mx-auto px-6 mb-20">
         <Card className="p-12 bg-gradient-to-br from-card/90 to-card/50 backdrop-blur-md border border-primary/20 relative overflow-hidden group hover:border-primary/40 transition-all duration-300">

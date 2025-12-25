@@ -225,7 +225,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
             </span>
-            <span className="text-sm text-foreground">Trusted by 185+ people</span>
+            <span className="text-sm text-foreground">Trusted by 91+ people</span>
           </div>
 
           <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
@@ -262,7 +262,7 @@ export default function Home() {
       </div>
 
       {/* Stats Section */}
-      <motion.section
+      {/* <motion.section
         ref={statsRef}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -287,7 +287,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Vision and Mission Section */}
       <section className="py-20 px-6 bg-white">
