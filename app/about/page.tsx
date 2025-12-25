@@ -68,7 +68,7 @@ export default function AboutPage() {
     <div ref={containerRef} className="min-h-screen bg-black relative overflow-hidden">
       <Navbar />
 
-      <div className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <div className="relative pt-32 pb-8 px-6 overflow-hidden">
         {/* Animated background orbs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
         <div
@@ -101,7 +101,7 @@ export default function AboutPage() {
         </motion.div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6 mb-20">
+      <div className="max-w-6xl mx-auto px-6 py-8 grid md:grid-cols-3 gap-6 mb-20">
         {[
           { label: "Projects Completed", value: 600, icon: "⚡" },
           { label: "Happy Clients", value: 185, icon: "🤝" },
@@ -123,7 +123,7 @@ export default function AboutPage() {
                   <AnimatedCounter end={stat.value} duration={2} />
                   {stat.value >= 100 ? "+" : ""}
                 </div>
-                <p className="text-gray-400">{stat.label}</p>
+                <p className="text-gray-700">{stat.label}</p>
               </div>
             </Card>
           </motion.div>
@@ -137,15 +137,30 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               Our Story
             </h2>
-            <p className="text-lg text-gray-300 leading-relaxed mb-4">
-              Florix PC Station was founded with a vision to bridge the gap between cutting-edge technology and
-              businesses that need it most. Led by Rajveersan and our dedicated team, we've grown from a small startup
-              to a trusted technology partner for 185+ clients worldwide.
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              Florix Technologies was founded with a simple belief: technology should be engineered around people, not forced into generic configurations.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Our mission is simple: empower businesses through innovative technology solutions that drive real results.
-              From web development to artificial intelligence, we're committed to turning imagination into digital
-              impact.
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              The journey began under Florix Smart Infra Solutions Pvt. Ltd., where real-world infrastructure projects highlighted a growing challenge. Individuals, startups, and businesses were investing in technology, yet struggling with performance, reliability, and long-term support. Systems were assembled, but not engineered. Services were provided, but not aligned to actual workflows.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              Florix Technologies was created to change that.
+              What started as a focused initiative in custom computing and IT consulting evolved into a full-spectrum technology division delivering engineered computing systems and complete IT care. From high-performance custom and industrial PC builds to enterprise-grade workstations, networking, managed IT services, and annual maintenance contracts, Florix Technologies was designed to support technology throughout its entire lifecycle.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              At the core of Florix Technologies is a consultation-first approach. Every solution begins by understanding how the system will be used, what performance is expected, and how it must scale over time. Whether it is a gaming and creator workstation, a business-critical office setup, or a managed IT environment, each deployment is purpose-built, tested, and optimized for real-world workloads.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              Today, Florix Technologies delivers eight major service verticals, including custom and industrial PC building, laptop sales and service, AMC and preventive maintenance, IT support, workstation and network infrastructure setup, web development, and managed IT services for businesses. These services are unified under one principle: precision engineering with reliable long-term support.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              Unlike traditional IT vendors, Florix Technologies does not operate on one-size-fits-all solutions. Systems are designed, built, stress-tested, deployed, and maintained with accountability. From clean cable management and thermal tuning to structured networking and dedicated AMC support, every detail reflects engineering discipline.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              Florix Technologies stands as the technology backbone for individuals and organizations that demand performance, stability, and clarity in IT operations. What began as custom builds has grown into complete IT stewardship.
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed ">
+              From custom systems to complete IT care, Florix Technologies continues to build, upgrade, and maintain technology that works the way it is meant to.
             </p>
           </div>
         </Card>
@@ -158,23 +173,26 @@ export default function AboutPage() {
             <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               Our Roots & Expertise
             </h2>
+            <h2 className="text-xl font-bold mb-8 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              Your Workflow. Your Performance. Our Engineering.
+            </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {[
                 {
-                  title: "Technology Leaders",
-                  desc: "With over 600+ completed projects, we've established ourselves as industry leaders in web development, IT infrastructure, and emerging technologies like artificial intelligence.",
+                  title: "Connected Systems Thinking",
+                  desc: "Our foundation comes from real operational environments under Florix Smart Infra Solutions Pvt. Ltd., where hardware, networks, and software must work together reliably. This experience shaped our belief that technology should be engineered as a connected system, not delivered as isolated services.",
                 },
                 {
-                  title: "Client-Focused Approach",
-                  desc: "Every project is a partnership. We work closely with our clients to understand their unique challenges and deliver solutions that exceed expectations.",
+                  title: "Hands-On Engineering Experience",
+                  desc: "Our expertise spans custom and industrial PC builds, laptops and workstations, networking and IT infrastructure, web development, managed IT services, and AMC support. Every solution begins with understanding real requirements, followed by careful design, implementation, and validation.",
                 },
                 {
-                  title: "Innovation First",
-                  desc: "We stay ahead of technological trends, constantly learning and adapting to provide our clients with the most advanced solutions available.",
+                  title: "End-to-End Ownership",
+                  desc: "What differentiates Florix is unified execution. Consultation, system design, deployment, testing, and ongoing support are handled under one roof. This ensures accountability at every stage and solutions that are stable, scalable, and ready for long-term use.",
                 },
                 {
-                  title: "Award-Winning Service",
-                  desc: "Our commitment to excellence has earned us 5 prestigious industry awards and the trust of clients across the globe.",
+                  title: "Long-Term Technology Partnership",
+                  desc: "Florix Technologies operates as a long-term technology partner rather than a one-time service provider. Clients receive solutions that are purpose-built, verified for real-world performance, and supported throughout their lifecycle - ensuring reliability, clarity, and confidence.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -188,7 +206,7 @@ export default function AboutPage() {
                   <h3 className="text-xl font-bold text-primary mb-3 group-hover/item:text-primary/80 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">{item.desc}</p>
+                  <p className="text-gray-600 leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
             </div>

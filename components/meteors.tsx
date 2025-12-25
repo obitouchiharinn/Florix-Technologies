@@ -28,12 +28,12 @@ export const Meteors = ({ number = 80 }: MeteorsProps) => {
     <div className="absolute inset-0">
       {meteorStyles.map((style, idx) => (
         <span
-          key={idx}
-          className="pointer-events-none absolute h-0.5 w-0.5 rotate-[215deg] animate-meteor rounded-full bg-primary shadow-[0_0_0_1px_#ffffff10]"
-          style={style}
-        >
-          <div className="pointer-events-none absolute top-1/2 -z-10 h-[1px] w-[120px] -translate-y-1/2 bg-gradient-to-r from-primary to-transparent" />
-        </span>
+  key={idx}
+  className="pointer-events-none absolute h-0.5 w-0.5 translate-x-[60px] rotate-[45deg] animate-meteor rounded-full bg-primary shadow-[0_0_0_1px_#ffffff10]"
+  style={style}
+>
+  <div className="pointer-events-none absolute right-0 top-1/2 -z-10 h-[1px] w-[120px] -translate-y-1/2 bg-gradient-to-l from-primary to-transparent" />
+</span>
       ))}
     </div>
   )
