@@ -6,25 +6,15 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Florix - Building Technology That Empowers Progress',
-  description: 'Florix PC Station provides comprehensive IT solutions including web development, IT support, AI integration, and more. Trusted by 185+ clients worldwide.',
-  generator: 'v0.app',
+  title: 'Florix Technologies',
+  description: 'Florix PC Station provides comprehensive IT solutions including web development, IT support, AI integration, and more. Trusted by 91+ clients worldwide.',
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/Florixsvg.svg',
+        type: 'image/svg',
       },
     ],
-    apple: '/apple-icon.png',
   },
 }
 

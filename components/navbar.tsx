@@ -49,7 +49,7 @@ export function Navbar({ hide = false }: NavbarProps) {
       {/* Pill-shaped navbar with white background */}
       <div className="relative flex items-center justify-between gap-8 bg-white px-4 md:px-8 py-2 rounded-full shadow-lg border border-gray-200 h-16">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold flex items-center gap-3 -ml-10 md:-ml-14 ">
+        <Link href="/" className="text-2xl font-bold flex items-center gap-3 -ml-2 md:-ml-7 ">
           <img src="/Florix.png" alt="Florix Logo" className="h-34  w-auto" />
         </Link>
 
