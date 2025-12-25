@@ -325,8 +325,7 @@ export default function Home() {
                     </h3>
                   </div>
                   <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                    To make personalized computing accessible, sustainable, and performance-driven for every user,
-                    empowering creativity and productivity through technology.
+                    To be the trusted One-Stop IT Ecosystem integrating high-performance hardware, support, and innovation to drive your success.
                   </p>
                 </div>
 
@@ -367,8 +366,7 @@ export default function Home() {
                     </h3>
                   </div>
                   <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                    To deliver complete IT and computing solutions, from custom-built PCs to comprehensive maintenance,
-                    with a relentless focus on innovation and long-term reliability.
+                    Build. Support. Grow. We deliver end-to-end IT solutions, spanning from the workstations powering your team to the digital platforms engaging your customers, ensuring your infrastructure is robust, resilient, and always ready for the future.
                   </p>
                 </div>
 
