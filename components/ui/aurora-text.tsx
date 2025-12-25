@@ -13,28 +13,30 @@ export const AuroraText = memo(
   ({
     children,
     className = "",
-    colors = ["#7CFC00", "#2ECC71", "#0B6623"],
+    colors = [
+  "#69d456ff",
+  "#107033ff",
+  "#18b618ff",
+  "#8bc897ff",
+],
     speed = 1,
   }: AuroraTextProps) => {
-    const gradientStyle = {
-      backgroundImage: `linear-gradient(135deg, ${colors.join(", ")}, ${
-        colors[0]
-      })`,
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      animationDuration: `${10 / speed}s`,
-    }
-
     return (
       <span className={`relative inline-block ${className}`}>
         <span className="sr-only">{children}</span>
+
         <span
-          className="animate-aurora relative bg-[length:200%_auto] bg-clip-text text-transparent"
-          style={gradientStyle}
-          aria-hidden="true"
-        >
-          {children}
-        </span>
+        aria-hidden="true"
+        className="animate-aurora inline-block bg-[length:300%_300%] bg-clip-text text-transparent leading-[1.15] pb-[0.08em]"
+        style={{
+          backgroundImage: `linear-gradient(135deg, ${colors.join(", ")})`,
+          animationDuration: `${8 / speed}s`,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+        }}
+      >
+        {children}  
+      </span>
       </span>
     )
   }

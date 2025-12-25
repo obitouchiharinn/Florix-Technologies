@@ -124,6 +124,25 @@
     scroll-behavior: smooth;
   }
 }
+@theme inline {
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+}
+
+/* Aurora keyframes */
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animate-aurora {
+  animation: var(--animate-aurora);
+}
 
 /* Custom animations for futuristic effects */
 @keyframes float {
@@ -209,4 +228,5 @@
 /* Apply correct animation name based on orientation */
 .marquee-track.horizontal { animation-name: marquee-horizontal }
 .marquee-track.vertical { animation-name: marquee-vertical }
+
 
