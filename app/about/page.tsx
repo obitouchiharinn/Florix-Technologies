@@ -15,7 +15,7 @@ export default function AboutPage() {
 
   // Parallax transforms
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 100])
-  const storyOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1])
+  const storyOpacity = useTransform(scrollYProgress, [0, 1], [1, 1])
   const storyY = useTransform(scrollYProgress, [0.1, 0.3], [100, 0])
   const expertiseOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1])
   const expertiseY = useTransform(scrollYProgress, [0.3, 0.5], [100, 0])
@@ -77,7 +77,7 @@ export default function AboutPage() {
         ></div>
 
         <motion.div ref={heroRef} style={{ y: heroY }} className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-5">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -100,7 +100,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </div>
-
+{/* 
       <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6 mb-20">
         {[
           { label: "Projects Completed", value: 600, icon: "⚡" },
