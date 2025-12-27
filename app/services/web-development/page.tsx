@@ -1,6 +1,5 @@
 "use client"
 
-import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
@@ -63,8 +62,6 @@ export default function WebDevelopmentPage() {
 
   return (
     <div className="min-h-screen bg-white" ref={containerRef}>
-      <Navbar />
-
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" data-scroll="0.2" />
         <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" data-scroll="0.15" />

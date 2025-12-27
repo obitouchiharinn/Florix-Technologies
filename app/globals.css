@@ -129,9 +129,9 @@
   }
 
   /* Smooth scroll behavior for animations */
-  html {
+  /* html {
     scroll-behavior: smooth;
-  }
+  } */
 }
 
 @theme inline {

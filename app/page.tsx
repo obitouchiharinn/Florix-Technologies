@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useRef, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Navbar } from "@/components/navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { motion, useScroll } from "framer-motion"
@@ -28,14 +27,25 @@ import {
 import { Footer } from "@/components/footer"
 import { Meteors } from "@/components/ui/meteors"
 import Reviews from "@/components/reviews"
+import HeroRobot from "@/components/hero-robot"
 
 export default function Home() {
   const router = useRouter()
   const heroRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
+  const visionRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
 
-  const [hideNavbar, setHideNavbar] = useState(false)
+  // Force scroll to top on refresh
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual'
+      window.scrollTo(0, 0)
+    }
+  }, [])
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -51,20 +61,6 @@ export default function Home() {
     target: servicesRef,
     offset: ["start start", "end start"],
   })
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!servicesRef.current) return
-
-      const rect = servicesRef.current.getBoundingClientRect()
-      const isInServicesSection = rect.top <= 100 && rect.bottom >= 100
-
-      setHideNavbar(isInServicesSection)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   // If navigated to a hash (/#contact), scroll to that section on mount and when hash changes
   useEffect(() => {
@@ -205,7 +201,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar hide={hideNavbar} />
+
+      {/* Hero Robot Overlay */}
+      <HeroRobot heroRef={heroRef} visionRef={visionRef} servicesRef={servicesRef} contactRef={contactRef} ctaRef={ctaRef} />
 
       {/* Hero Section */}
       <motion.section
@@ -230,7 +228,10 @@ export default function Home() {
             </div>
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
-              <span className="text-foreground">Building technology that </span>
+              <span className="relative inline-block text-foreground">
+                Building technology
+              </span>
+              <span className="text-foreground"> that </span>
               <AuroraText className="font-bold">empowers progress</AuroraText>
             </h1>
 
@@ -291,8 +292,8 @@ export default function Home() {
       </motion.section> */}
 
       {/* Vision and Mission Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section ref={visionRef} className="py-20 px-6 bg-white min-h-screen flex items-center">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Vision Card */}
             <motion.div
@@ -380,7 +381,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section ref={servicesRef} className="relative min-h-screen bg-white">
+      <section id="services-section" ref={servicesRef} className="relative min-h-screen bg-white">
         <div className="sticky top-0 pt-16 pb-6 px-6 text-center bg-white z-20 border-b border-gray-100">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -497,6 +498,7 @@ export default function Home() {
           </motion.section>
 
           <motion.div
+            ref={contactRef}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -755,7 +757,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 px-6 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
+      <section ref={ctaRef} className="py-32 px-6 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

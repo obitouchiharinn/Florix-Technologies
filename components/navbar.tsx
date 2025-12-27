@@ -8,20 +8,83 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-interface NavbarProps {
-  hide?: boolean
+// Helper for custom duration smooth scroll
+const smoothScrollTo = (target: string | number, duration: number) => {
+  let targetPosition = 0
+  if (typeof target === 'number') {
+    targetPosition = target
+  } else {
+    const element = document.getElementById(target)
+    if (!element) return
+    targetPosition = element.getBoundingClientRect().top + window.scrollY
+  }
+  const startPosition = window.scrollY
+  const distance = targetPosition - startPosition
+  let startTime: number | null = null
+
+  function animation(currentTime: number) {
+    if (startTime === null) startTime = currentTime
+    const timeElapsed = currentTime - startTime
+
+    // Ease-in-out cubic function
+    const ease = (t: number, b: number, c: number, d: number) => {
+      t /= d / 2
+      if (t < 1) return (c / 2) * t * t * t + b
+      t -= 2
+      return (c / 2) * (t * t * t + 2) + b
+    }
+
+    const run = ease(timeElapsed, startPosition, distance, duration)
+    window.scrollTo(0, run)
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation)
+    } else {
+      window.scrollTo(0, targetPosition)
+    }
+  }
+
+  requestAnimationFrame(animation)
 }
 
-export function Navbar({ hide = false }: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [hide, setHide] = useState(false)
   const [transitionOverlay, setTransitionOverlay] = useState({
     isOpen: false,
     x: 0,
     y: 0,
     color: "#ffffff"
   })
+
+  // Handle Navbar visibility on Home page
+  useEffect(() => {
+    if (pathname !== "/") {
+      setHide(false)
+      return
+    }
+
+    const handleScroll = () => {
+      const servicesSection = document.getElementById("services-section")
+      if (!servicesSection) return
+
+      const rect = servicesSection.getBoundingClientRect()
+      // Hide navbar when scrolling through services section
+      const isInServicesSection = rect.top <= 100 && rect.bottom >= 100
+      setHide(isInServicesSection)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [pathname])
+
+  // Close mobile menu on path change
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
 
 
   const navItems = [
@@ -38,10 +101,13 @@ export function Navbar({ hide = false }: NavbarProps) {
     // We skip the page transition effect for simple scrolling, as requested context implies navigating "to" pages.
     // Unless user specifically wants animation for scrolling? Usually not.
     if (href === "#contact" && pathname === "/") {
-      const contactSection = document.querySelector('[id="contact"]')
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: "smooth" })
-      }
+      smoothScrollTo("contact", 2500)
+      return
+    }
+
+    // 2. Handle Home Scroll (Super Smooth)
+    if (href === "/" && pathname === "/") {
+      smoothScrollTo(0, 2500)
       return
     }
 
@@ -61,46 +127,49 @@ export function Navbar({ hide = false }: NavbarProps) {
     }
 
     // Determine color:
-    // 1. If going from Contact page to Home -> Black
-    // 2. If going to Home or Contact (default) -> White
-    // 3. Else (going to Services etc) -> Green
-    let revealColor = "#00ff88"; // Default Green
+    // Black when going from Contact to Home, White for everything else
+    let revealColor = "#ffffff"; // Default White
 
-    if (targetHref === "/") {
-      if (pathname === "/contact") {
-        revealColor = "#000000"; // Black
-      } else {
-        revealColor = "#ffffff"; // White
-      }
-    } else if (targetHref === "/contact") {
-      revealColor = "#ffffff";
+    if (targetHref === "/" && pathname === "/contact") {
+      revealColor = "#000000"; // Black only for Contact -> Home
     }
 
+    // Capture coordinates robustly for mobile and desktop
+    const rect = e.currentTarget.getBoundingClientRect()
+    let x = e.clientX
+    let y = e.clientY
+
+    // For mobile/touch events, clientX/Y might be 0, use element center
+    if (!x || !y || x === 0 || y === 0) {
+      x = rect.left + rect.width / 2
+      y = rect.top + rect.height / 2
+    }
+
+    // Round coordinates to avoid sub-pixel floats causing invalid CSS keyframe names
+    x = Math.round(x)
+    y = Math.round(y)
+
+    // Calculate the maximum distance to any corner for full coverage
+    const maxDistance = Math.sqrt(
+      Math.pow(Math.max(x, window.innerWidth - x), 2) +
+      Math.pow(Math.max(y, window.innerHeight - y), 2)
+    )
+    const endRadius = maxDistance * 1.5 // 1.5x for smooth complete coverage
+
+    // Check for View Transitions API support
     // @ts-ignore
     if (!document.startViewTransition) {
-      // Fallback for browsers without View Transition API (Safari < 18, etc.)
-      // Trigger manual overlay animation
-      setTransitionOverlay({ isOpen: true, x: e.clientX, y: e.clientY, color: revealColor })
+      // Fallback animation using CSS overlay for unsupported browsers
+      setTransitionOverlay({ isOpen: true, x, y, color: revealColor })
 
-      // Wait for animation expansion before pushing route
       setTimeout(() => {
         router.push(targetHref)
-        // Keep overlay until new page loads? 
-        // We'll rely on pathname change effect to close it or timeout
         setTimeout(() => setTransitionOverlay(prev => ({ ...prev, isOpen: false })), 500)
-      }, 800)
+      }, 2500)
       return
     }
 
-    // View Transition API Logic
-    const x = e.clientX
-    const y = e.clientY
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    )
-
+    // View Transition API Logic (Supported browsers - desktop and modern mobile)
     // @ts-ignore
     const transition = document.startViewTransition(async () => {
       await router.push(targetHref)
@@ -109,10 +178,8 @@ export function Navbar({ hide = false }: NavbarProps) {
     // @ts-ignore
     await transition.ready
 
-    const isMobile = window.innerWidth < 768
-    const duration = isMobile ? 2500 : 1500 // Slower as requested
+    const duration = 2500 // 2.5 seconds for slow, dramatic effect
 
-    // Animate the new view (the expanding circle)
     document.documentElement.animate(
       {
         clipPath: [
@@ -122,7 +189,7 @@ export function Navbar({ hide = false }: NavbarProps) {
       },
       {
         duration: duration,
-        easing: "ease-in-out",
+        easing: "cubic-bezier(0.4, 0.0, 0.2, 1)", // Material Design easing for smooth motion
         pseudoElement: "::view-transition-new(root)",
       }
     )
@@ -137,15 +204,28 @@ export function Navbar({ hide = false }: NavbarProps) {
     <>
       {/* Fallback Transition Overlay */}
       {transitionOverlay.isOpen && (
-        <div
-          className="fixed inset-0 z-[100] pointer-events-none"
-          style={{
-            '--x': `${transitionOverlay.x}px`,
-            '--y': `${transitionOverlay.y}px`,
-            backgroundColor: transitionOverlay.color,
-            animation: "expand-overlay 1s ease-in-out forwards"
-          } as React.CSSProperties} // Type assertion for custom CSS properties
-        />
+        <>
+          <div
+            className="fixed inset-0 z-[9999] pointer-events-auto"
+            style={{
+              backgroundColor: transitionOverlay.color,
+              clipPath: `circle(0px at ${transitionOverlay.x}px ${transitionOverlay.y}px)`,
+              animation: `expand-circle-${transitionOverlay.x}-${transitionOverlay.y} 2.5s cubic-bezier(0.4, 0.0, 0.2, 1) forwards`
+            }}
+          />
+          <style jsx global>{`
+            @keyframes expand-circle-${transitionOverlay.x}-${transitionOverlay.y} {
+              0% { 
+                clip-path: circle(0px at ${transitionOverlay.x}px ${transitionOverlay.y}px);
+                opacity: 1;
+              }
+              100% { 
+                clip-path: circle(200% at ${transitionOverlay.x}px ${transitionOverlay.y}px);
+                opacity: 1;
+              }
+            }
+          `}</style>
+        </>
       )}
 
       <nav
@@ -219,15 +299,10 @@ export function Navbar({ hide = false }: NavbarProps) {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => {
-                    if (pathname === item.href) {
-                      setOpen(false)
-                      return
-                    }
                     handleLinkClick(e, item.href)
-                    // Don't close menu here to allow transition to capture open state
-                    // New page will load with default closed state
+                    // Menu will close automatically when page changes
                   }}
-                  className={cn( // Corrected usage
+                  className={cn(
                     "w-full text-center text-sm font-medium transition-colors hover:text-primary py-1",
                     pathname === item.href || (item.href === "#contact" && pathname === "/")
                       ? "text-primary"
@@ -252,12 +327,6 @@ export function Navbar({ hide = false }: NavbarProps) {
           )}
         </div>
       </nav>
-      <style jsx global>{`
-      @keyframes expand-overlay {
-        0% { clip-path: circle(0px at var(--x) var(--y)); }
-        100% { clip-path: circle(150% at var(--x) var(--y)); }
-      }
-    `}</style>
     </>
   )
 }

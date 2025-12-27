@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { motion, useScroll, useTransform } from "framer-motion"
 
@@ -66,8 +65,6 @@ export default function AboutPage() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-black relative overflow-hidden">
-      <Navbar />
-
       <div className="relative pt-32 pb-8 px-6 overflow-hidden">
         {/* Animated background orbs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
@@ -100,7 +97,7 @@ export default function AboutPage() {
           </div>
         </motion.div>
       </div>
-{/* 
+      {/* 
       <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6 mb-20">
         {[
           { label: "Projects Completed", value: 600, icon: "⚡" },

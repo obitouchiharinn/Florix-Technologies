@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Navbar } from "@/components/navbar"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
@@ -64,8 +63,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-
       <section className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -176,11 +173,10 @@ export default function ContactPage() {
                   {statusMessage && (
                     <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="mb-2 flex justify-center">
                       <div
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
-                          statusMessage.type === "success"
-                            ? "bg-primary/10 text-primary"
-                            : "bg-red-50 text-red-600"
-                        }`}
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${statusMessage.type === "success"
+                          ? "bg-primary/10 text-primary"
+                          : "bg-red-50 text-red-600"
+                          }`}
                       >
                         <span className={`relative flex h-3 w-3 ${statusMessage.type === "success" ? "" : "opacity-80"}`}>
                           {statusMessage.type === "success" ? (

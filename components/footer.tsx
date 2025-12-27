@@ -103,7 +103,7 @@ export function Footer() {
           </div>
 
           {/* Contact Section */}
-          <div className="space-y-4">
+          <div className="space-y-4" id="contact">
             <h4 className="font-semibold text-foreground">Contact</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
