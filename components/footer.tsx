@@ -115,7 +115,7 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <p className="text-sm text-muted-foreground">info@florix.com</p>
+                  <p className="text-sm text-muted-foreground">info@florixtechnologies.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

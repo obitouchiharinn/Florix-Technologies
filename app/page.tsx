@@ -216,39 +216,39 @@ export default function Home() {
         className="min-h-[70vh] md:min-h-screen flex items-center justify-center px-6 pt-28 md:pt-32 relative overflow-hidden"
       >
         {/* Meteors background - full-cover absolute so it sits behind content */}
-        <div  className="relative flex w-full flex-col items-center justify-center overflow-hidden h-auto md:h-[500px]">
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden h-auto md:h-[500px]">
           <Meteors number={30} />
-        
 
-        <div className="max-w-6xl mx-auto text-center relative z-10 mt-4 md:mt-0">
-          <div className="inline-flex items-center gap-2 mb-6 mt-4 px-4 py-2 bg-primary/10 rounded-full">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-            </span>
-            <span className="text-sm text-foreground">Trusted by 91+ people</span>
-          </div>
 
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
-            <span className="text-foreground">Building technology that </span>
+          <div className="max-w-6xl mx-auto text-center relative z-10 mt-4 md:mt-0">
+            <div className="inline-flex items-center gap-2 mb-6 mt-4 px-4 py-2 bg-primary/10 rounded-full">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+              </span>
+              <span className="text-sm text-foreground">Trusted by 91+ people</span>
+            </div>
+
+            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance">
+              <span className="text-foreground">Building technology that </span>
               <AuroraText className="font-bold">empowers progress</AuroraText>
-          </h1>
+            </h1>
 
-          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto text-balance">
-            {"Creating meaningful connections and turning big ideas into interactive digital experiences."}
-          </p>
+            <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto text-balance">
+              {"Creating meaningful connections and turning big ideas into interactive digital experiences."}
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
-            <Button size="lg" className="w-full sm:w-auto rounded-full bg-primary hover:bg-primary/90 text-white px-8 py-3">
-              Get Started
-            </Button>
-            {/* <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 bg-transparent mt-2 sm:mt-0">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+              <Button size="lg" className="w-full sm:w-auto rounded-full bg-primary hover:bg-primary/90 text-white px-8 py-3">
+                Get Started
+              </Button>
+              {/* <Button size="lg" variant="outline" className="w-full sm:w-auto rounded-full px-8 bg-transparent mt-2 sm:mt-0">
               View Our Work
             </Button> */}
+            </div>
+
+
           </div>
-
-
-        </div>
         </div>
       </motion.section>
 
@@ -609,11 +609,10 @@ export default function Home() {
                   {statusMessage && (
                     <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="mb-2 flex justify-center">
                       <div
-                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
-                          statusMessage.type === "success"
-                            ? "bg-primary/10 text-primary"
-                            : "bg-red-50 text-red-600"
-                        }`}
+                        className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${statusMessage.type === "success"
+                          ? "bg-primary/10 text-primary"
+                          : "bg-red-50 text-red-600"
+                          }`}
                       >
                         <span className={`relative flex h-3 w-3 ${statusMessage.type === "success" ? "" : "opacity-80"}`}>
                           {statusMessage.type === "success" ? (
