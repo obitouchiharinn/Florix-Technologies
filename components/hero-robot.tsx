@@ -742,7 +742,7 @@ function ScrollManager({
         // Define Positions
         // 1. Hero Position (Base)
         const desktopHeroPos = new THREE.Vector3(-6.4, -0.33, -0.4)
-        const mobileHeroPos = new THREE.Vector3(-1.2, 1.6, 0)
+        const mobileHeroPos = new THREE.Vector3(-1.2, 1.2, 0)
 
         const heroPos = isMobile ? mobileHeroPos : desktopHeroPos
         const heroScale = isMobile ? 1.3 : 2.4
