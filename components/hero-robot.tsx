@@ -411,18 +411,30 @@ function Robot({
                 {
                     showGreeting && (
                         <Html
-                            position={[0.6, 1.0, 0]}
+                            position={[0.45, 1.0, 0]}
                             center
                             distanceFactor={10}
                             zIndexRange={[100, 0]}
                             style={{ pointerEvents: 'none', whiteSpace: 'nowrap' }}
                         >
-                            <div className="bg-white/90 dark:bg-black/90 px-4 py-2 rounded-full border border-primary/50 backdrop-blur-sm animate-in fade-in zoom-in slide-in-from-bottom-4 duration-500 shadow-xl">
-                                <p className="text-primary font-bold text-lg flex items-center gap-2">
+                            <div className="
+  bg-white dark:bg-black/90
+  px-2 py-0.5 md:px-2.5 md:py-1
+  animate-in fade-in zoom-in slide-in-from-bottom-4 duration-500
+  border-none ring-0 outline-none
+">
+                                <p className="
+    text-primary
+    font-semibold
+    text-[9px] md:text-xs
+    flex items-center gap-1
+    leading-none
+  ">
                                     <span>Hii, Buddy</span>
-                                    <span className="animate-bounce">👋</span>
+                                    <span className="animate-bounce text-[10px] md:text-xs">👋</span>
                                 </p>
                             </div>
+
                         </Html>
                     )
                 }
@@ -729,25 +741,25 @@ function ScrollManager({
 
         // Define Positions
         // 1. Hero Position (Base)
-        const desktopHeroPos = new THREE.Vector3(-6.1, -0.34, -0.4)
-        const mobileHeroPos = new THREE.Vector3(-1.2, 1.9, 0)
+        const desktopHeroPos = new THREE.Vector3(-6.4, -0.33, -0.4)
+        const mobileHeroPos = new THREE.Vector3(-1.2, 1.6, 0)
 
         const heroPos = isMobile ? mobileHeroPos : desktopHeroPos
-        const heroScale = isMobile ? 0.9 : 2.4
+        const heroScale = isMobile ? 1.3 : 2.4
 
         // 2. Vision Position (Target)
         const desktopVisionPos = new THREE.Vector3(0, -0.5, 2.0)
         const mobileVisionPos = new THREE.Vector3(0, -0.7, 1.0) // Higher and smaller on mobile
 
         const visionPos = isMobile ? mobileVisionPos : desktopVisionPos
-        const visionScaleVal = isMobile ? 1.0 : 2.4
+        const visionScaleVal = isMobile ? 1.1 : 2.4
 
         // 3. Services Position
         const desktopServicesPos = new THREE.Vector3(-4.5, -1.6, 2.0) // Left side
         const mobileServicesPos = new THREE.Vector3(0, 0.9, 1.0) // Top Center on mobile
 
         const servicesPos = isMobile ? mobileServicesPos : desktopServicesPos
-        const servicesScaleVal = isMobile ? 1.0 : 2.4
+        const servicesScaleVal = isMobile ? 1.1 : 2.4
 
         // 4. Contact Position
         const desktopContactPos = new THREE.Vector3(4.5, -1.8, 1.8) // Right side
@@ -761,7 +773,7 @@ function ScrollManager({
         const mobileCtaPos = new THREE.Vector3(0, 1.2, 2.0) // Center - Moved UP above text for mobile
 
         const ctaPos = isMobile ? mobileCtaPos : desktopCtaPos
-        const ctaScaleVal = isMobile ? 1.0 : 2.4
+        const ctaScaleVal = isMobile ? 1.2 : 2.4
 
         // Determine destination based on current Target State
         let targetPos: THREE.Vector3
@@ -891,7 +903,7 @@ function ScrollManager({
         }
 
         // Smoothly Interpolate
-        const lambda = 2.5
+        const lambda = 4.0
 
         // Position: Snap Y for sticky states to prevent scroll lag
         // Only CTA needs perfect snap as it is an overlay. Contact can use smooth lerp.
